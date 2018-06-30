@@ -1,0 +1,39 @@
+<!--
+  Generated template for the UserBuddiesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Players</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item no-lines>
+    <ion-label color="primary" stacked>Enter Player Details</ion-label>
+    <ion-input type="text" placeholder="Username" [(ngModel)]="username"></ion-input>
+    <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+  </ion-item>
+  <ion-item no-lines>
+    <button ion-button (click)="AddPlayer($event)">Add Player</button>
+  </ion-item>
+
+
+  <ion-chip *ngFor="let buddy of userbuddies;"> 
+    <ion-icon name="heart" color="primary"  (click)="TogglePlayerSelect($event, buddy)"></ion-icon>
+    <ion-label>{{buddy.name}}</ion-label>
+    <ion-icon name="close" color="dark" (click)="DeletePlayer(buddy)"></ion-icon>
+  </ion-chip>
+
+
+  <button ion-button full style="margin-top:50%" (click)="StartMultiPlayerGame($event)">Start Game</button>
+
+
+
+</ion-content>

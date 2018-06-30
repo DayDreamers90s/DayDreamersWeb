@@ -1,0 +1,29 @@
+drawcanvas {
+    height: 100%;
+    width: 100%;
+    display: block;
+ 
+    #top-toolbar{
+        position: absolute;
+        top: 0;
+    }
+ 
+    #bottom-toolbar {
+        position: absolute;
+        bottom: 0;
+    }
+
+    #playerLabel{
+    position:fixed;
+    margin-top:15%;
+    float:right;
+    }
+
+    canvas{
+        background-color: #ffffff;
+    }
+
+    .no-scroll .scroll-content{
+        overflow: hidden;
+   }
+}
