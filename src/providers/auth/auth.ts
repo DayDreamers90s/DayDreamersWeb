@@ -133,4 +133,26 @@ export class Auth {
     this.events.publish('user:logout');
   }
 
+
+  saveUserDetails(userdetails){
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post( this.localhost_url+'api/userdetails', JSON.stringify(userdetails), { headers: headers })
+        .subscribe(res => {
+
+          let data = res.json();
+          console.log("After saving user details: "+ data);
+          resolve(data);
+
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+  }
+
 }

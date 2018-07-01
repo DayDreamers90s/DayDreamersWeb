@@ -13,7 +13,8 @@ import {GamePage} from '../pages/game/game';
 import {BookmarksPage} from '../pages/bookmarks/bookmarks';
 import {SettingsPage} from '../pages/settings/settings';
 import {ProfilePage} from '../pages/profile/profile';
-import {UserBuddiesPage} from '../pages/user-buddies/user-buddies'
+import {UserBuddiesPage} from '../pages/user-buddies/user-buddies';
+import {PreviewCanvasPage} from '../pages/preview-canvas/preview-canvas';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +39,8 @@ import { UserBuddiesProvider } from '../providers/user-buddies/user-buddies';
     SettingsPage,
     ProfilePage,
     ImagepickerPage,
-    DrawcanvasComponent
+    DrawcanvasComponent,
+    PreviewCanvasPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { UserBuddiesProvider } from '../providers/user-buddies/user-buddies';
     SettingsPage,
     ProfilePage,
     ImagepickerPage,
-    DrawcanvasComponent
+    DrawcanvasComponent,
+    PreviewCanvasPage
   ],
   providers: [
     StatusBar,

@@ -1,12 +1,12 @@
 <!-- Generated template for the DrawcanvasComponent component -->
 <ion-content class="no-scroll">
     <ion-navbar #toptoolbar id="top-toolbar">
-        <ion-buttons left>
+        <ion-buttons [hidden]="roundComplete" left>
             <button *ngFor="let colour of availableColours" icon-only ion-button (click)="changeColour(colour)">
                 <ion-icon [style.color]="colour" name="brush"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-buttons right>
+        <ion-buttons [hidden]="roundComplete" right>
             <button style="border: 1px solid #cecece;" ion-button icon-only style.color="#fff" (click)="changeColour('#fff')">
                 <ion-icon style="color: #fff;" name="square"></ion-icon>
             </button>
@@ -19,14 +19,16 @@
     <ion-chip id="playerLabel" *ngIf="currentPlayer!=null">            
             <ion-label>{{currentPlayer.username}}</ion-label>           
     </ion-chip>
+    <!-- <img id="imageToUse" style="display:none;" #BackgroundImage src="https://static.wixstatic.com/media/3ac9a4_c2fea13ee7fe47a4bff5bed303e048b1~mv2.jpg" alt="BackgroundPaper"> -->
+    <!-- <canvas *ngIf="!roundComplete" #myCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)"></canvas> -->
+    <canvas id="cs"  #myCanvas [hidden]="roundComplete" (touchstart)="handleStart($event)" (touchmove)="handleMove($event)"></canvas>
 
-    <canvas *ngIf="!roundComplete"  #myCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)"></canvas>
-    
-    <button ion-button full style="margin-top:50%" *ngIf="roundComplete" (click)="PlayNextRound($event)">Continue</button>
-    <button ion-button full  *ngIf="roundComplete" (click)="GotoScoreBoard($event)">Go to Scoreboard</button>
+    <div id="divRoundComplete" #divRoundComplete   [hidden]="!roundComplete" >
+    <button ion-button full style="margin-top:50%" (click)="PlayNextRound($event)">Continue</button>
+    <button ion-button full  (click)="GotoScoreBoard($event)">Go to Scoreboard</button>
+        </div>
 
-
-    <ion-toolbar #bottomtoolbar id="bottom-toolbar">
+    <ion-toolbar [hidden]="roundComplete" #bottomtoolbar id="bottom-toolbar">
         <ion-buttons left>
             <button color="dark" ion-button icon-only (click)="changeSize(5)">
                 <ion-icon style="font-size: 0.25em;" name="radio-button-on"></ion-icon>

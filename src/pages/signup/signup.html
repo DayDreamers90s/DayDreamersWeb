@@ -1,42 +1,55 @@
 <ion-header>
- 
-  <ion-navbar color="secondary">
-    <ion-title>Create Account</ion-title>
-  </ion-navbar>
- 
+
+    <ion-navbar color="secondary">
+        <ion-title>Create Account</ion-title>
+    </ion-navbar>
+
 </ion-header>
- 
- 
+
+
 <ion-content padding>
- 
+
     <ion-row class="account-form">
         <ion-col>
             <ion-list inset>
- 
+
                 <ion-item>
-                    <ion-label><ion-icon name="mail"></ion-icon></ion-label>
+                    <ion-label>
+                        <ion-icon name="mail"></ion-icon>
+                    </ion-label>
                     <ion-input [(ngModel)]="email" placeholder="Email" type="email"></ion-input>
                 </ion-item>
- 
+
                 <ion-item>
-                    <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+                    <ion-label>
+                        <ion-icon name="lock"></ion-icon>
+                    </ion-label>
                     <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
                 </ion-item>
- 
-                <!-- <ion-item>
-                    <ion-label>Role</ion-label>
-                    <ion-select [(ngModel)]="role">
-                        <ion-option value="reader">Reader</ion-option>
-                        <ion-option value="creator">Creator</ion-option>
-                        <ion-option value="editor">Editor</ion-option>
-                    </ion-select>
-                </ion-item> -->
- 
+
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="lock"></ion-icon>
+                    </ion-label>
+                    <ion-input [(ngModel)]="firstname" placeholder="First Name" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="lock"></ion-icon>
+                    </ion-label>
+                    <ion-input [(ngModel)]="lastname" placeholder="Last Name" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="lock"></ion-icon>
+                    </ion-label>
+                    <ion-input [(ngModel)]="phonenumber" placeholder="Phone Number" type="text"></ion-input>
+                </ion-item>
             </ion-list>
- 
+
             <button ion-button (click)="register()" class="continue-button">Register</button>
- 
+
         </ion-col>
     </ion-row>
- 
+
 </ion-content>

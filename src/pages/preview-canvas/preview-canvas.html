@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Preview</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row *ngFor="let model of scoreboardmodels" class="roundPanel">
+    <ion-toolbar>
+      <ion-title>Round - {{model.round}}</ion-title>
+    </ion-toolbar>
+      <ion-card class="swipe-cards" *ngFor="let imgmodel of model.roundImages" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
+
+        <img [attr.src]="imgmodel.image">
+        <ion-chip *ngFor="let buddy of imgmodel.buddies;">
+          <ion-icon name="heart" color="primary" (click)="TogglePlayerSelect($event, buddy)"></ion-icon>
+          <ion-label>{{buddy}}</ion-label>
+        </ion-chip>
+
+      </ion-card>
+  </ion-row>
+</ion-content>

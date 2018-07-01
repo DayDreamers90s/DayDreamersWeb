@@ -1,6 +1,13 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
-import { Platform, NavParams } from 'ionic-angular';
+import { Platform, NavParams, NavController } from 'ionic-angular';
 import { Auth } from '../../providers/auth/auth';
+import 'fabric';
+import { PreviewCanvasPage } from '../../pages/preview-canvas/preview-canvas';
+import { PlayerModel } from '../../models/playermodel';
+import { GameModel } from '../../models/gamemodel';
+
+declare let fabric: any;
+
 @Component({
     selector: 'drawcanvas',
     templateUrl: 'drawcanvas.html'
@@ -9,6 +16,10 @@ export class DrawcanvasComponent {
     @ViewChild('myCanvas') canvas: any;
     @ViewChild('toptoolbar') toptoolbar: any;
     @ViewChild('bottomtoolbar') bottomtoolbar: any;
+
+    // private canvs;
+    // private boundBox;
+    // private shape;
 
 
     multiplayer: boolean;
@@ -27,7 +38,7 @@ export class DrawcanvasComponent {
     availableColours: any;
     brushSize: number = 10;
 
-    constructor(public platform: Platform, public authService: Auth, public params: NavParams, public renderer: Renderer) {
+    constructor(public platform: Platform, public authService: Auth, public navCtrl: NavController, public params: NavParams, public renderer: Renderer) {
 
         this.availableColours = [
             '#1abc9c',
@@ -38,18 +49,45 @@ export class DrawcanvasComponent {
         ];
 
         this.currentRound = 0;
-        this.players =[];
-        this.createPlayersForTheGame(params.get('Players'));  
-        this.startRoundForThePlayers();
-        this.currentPlayer = this.getNextPlayer();
-        // this.authService.getUserDetails().then((res) => {
-        //     console.log(JSON.stringify(res));
-        //     this.players.push(new PlayerModel(res));
-           
-        //   });
-        
-    
+        this.players = [];
+        this.authService.getUserDetails().then((res) => {
+            console.log(JSON.stringify(res));
+            this.players.push(new PlayerModel(res));
+            this.createPlayersForTheGame(params.get('Players'));
+            this.startRoundForThePlayers();
+            this.currentPlayer = this.getNextPlayer();
+
+        });
+
+
     }
+
+    // ionViewDidLoad() {
+    //     this.canvs = new fabric.Canvas('cs', {
+    //         isDrawingMode: true
+    //       });
+
+    //     this.boundBox = new fabric.Rect({
+    //         width: 200,
+    //         height: 200,
+    //         fill: 'transparent',
+    //         stroke: '#666',
+    //         strokeDashArray: [5, 5]
+    //     });
+
+    //     this.shape = new fabric.Rect({
+    //         width: 50,
+    //         height: 50,
+    //         left: 10,
+    //         top: 10,
+    //         fill: 'red'
+    //     });
+
+    //     this.canvs.add(this.boundBox);
+    //     this.canvs.add(this.shape);
+    //     this.canvs.centerObject(this.boundBox);
+
+    // }
 
     createPlayersForTheGame(players) {
         if (players != undefined) {
@@ -57,7 +95,7 @@ export class DrawcanvasComponent {
             for (let player of players) {
                 this.players.push(new PlayerModel(player));
             }
-        }        
+        }
     }
 
     startRoundForThePlayers() {
@@ -77,12 +115,11 @@ export class DrawcanvasComponent {
     }
 
     setCurrentPlayerAsPlayed() {
-        for(var i =0; i< this.players.length; i++){
-            if(this.players[i]._id == this.currentPlayer._id){
+        for (var i = 0; i < this.players.length; i++) {
+            if (this.players[i]._id == this.currentPlayer._id) {
                 let img = this.canvasElement.toDataURL('img/jpeg', 1.0);
-                //let player = this.players[i];
-                this.players[i].game[this.currentRound].image= img;
-                this.players[i].game[this.currentRound].hasPlayed= true;
+                this.players[i].game[this.currentRound].image = img;
+                this.players[i].game[this.currentRound].hasPlayed = true;
                 break;
             }
         }
@@ -94,7 +131,14 @@ export class DrawcanvasComponent {
         this.canvasElement = this.canvas.nativeElement;
         this.renderer.setElementAttribute(this.canvasElement, 'width', this.platform.width() + '');
         this.renderer.setElementAttribute(this.canvasElement, 'height', this.platform.height() + '');
+        let ctx = this.canvasElement.getContext('2d');
+        // ctx.globalCompositeOperation = "destination-over";
 
+        // // set background color
+        // ctx.fillStyle = '#fff'; // <- background color
+
+        // // draw background / rect on entire canvas
+        // ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
 
     changeColour(colour) {
@@ -137,9 +181,6 @@ export class DrawcanvasComponent {
     }
 
     Submit(event) {
-        
-        // this.currentPlayer.game[this.currentRound].image = img;
-        // this.currentPlayer.game[this.currentRound].hasPlayed = true;
         this.setCurrentPlayerAsPlayed();
 
         this.clearCanvas();
@@ -148,10 +189,8 @@ export class DrawcanvasComponent {
 
         if (this.currentPlayer == null) {
             this.roundComplete = true;
-            this.currentPlayer=null;
+            this.currentPlayer = null;
         } //round completed ask for next round
-
-        console.log(JSON.stringify(this.submittedplayers));
     }
 
     PlayNextRound(e) {
@@ -159,52 +198,18 @@ export class DrawcanvasComponent {
         this.startRoundForThePlayers();
         this.currentPlayer = this.getNextPlayer();
         this.roundComplete = false;
+        console.log(JSON.stringify(this.players));
     }
 
     GotoScoreBoard(e) {
-        //this.navctrl.push(,this.players);
+        this.navCtrl.push(PreviewCanvasPage, { 'Players': this.players });
     }
 
 
 }
 
 
-export class GameModel {
-    round: number;
-    image: string;
-    hasPlayed: boolean;
-    likes: number;
-    hates: number;
-
-    constructor(roundnumber: number) {
-        this.round = roundnumber;
-        this.image = '';
-        this.hasPlayed = false;
-        this.likes = 0;
-        this.hates = 0;
-    }
-
-}
 
 
 
-export class PlayerModel {
-    _id: string;
-    username: string;
-    isHost: boolean;
-    game: GameModel[];
 
-
-    constructor(response: any) {
-        this._id = response._id;
-        if (response.name != undefined) {
-            this.username = response.name;
-            this.isHost = false;
-        }
-        else if (response.firstname != undefined) {
-            this.username = response.firstname;
-            this.isHost = true;
-        }
-        this.game = [];
-    }
-}
