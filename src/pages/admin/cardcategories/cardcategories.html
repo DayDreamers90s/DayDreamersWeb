@@ -1,0 +1,66 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Card Categories</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="category" (ngSubmit)="addCategory()" [hidden]="editCategory._id!=undefined">
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Description</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+    <button small ion-button color="secondary" type="submit" [disabled]="!category.valid" style="float:right;">Add Category
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </form>
+
+  <form (ngSubmit)="updateCategory()" [hidden]="editCategory._id==undefined">
+    <ion-input type="hidden" name="id" [(ngModel)]="editCategory._id"></ion-input>
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="editCategory.name" name="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-textarea [(ngModel)]="editCategory.description" name="description"></ion-textarea>
+    </ion-item>
+    <button ion-button style="float:right;" type="button" color="danger" (click)="CancelUpdate()">Cancel</button>
+    <button ion-button style="float:right;"  type="submit" color="secondary" [disabled]="editCategory.name == ''">Update</button>
+  </form>
+
+  <ion-list style="margin-top:15px;">
+    <ion-item-sliding *ngFor="let item of categories">
+      <ion-item>
+        <!-- <ion-avatar item-start>
+                <img src="img/slimer.png">
+              </ion-avatar> -->
+        <h2>{{item.name}}</h2>
+        <p>{{item.description}}</p>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary" (click)="EditCategory(item)">
+          <!-- <ion-icon name="edit"></ion-icon> -->
+          Edit
+        </button>
+        <button ion-button color="danger" (click)="DeleteCategory(item)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

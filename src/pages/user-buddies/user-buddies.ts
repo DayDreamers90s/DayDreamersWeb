@@ -36,7 +36,7 @@ export class UserBuddiesPage {
           this.userbuddies.push(new UserBuddiesModel(result[key]));
         }
       }
-      console.log("User buddies: " + JSON.stringify(result));
+      // console.log("User buddies: " + JSON.stringify(result));
     }, (err) => {
       console.log(err);
     });

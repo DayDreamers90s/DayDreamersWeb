@@ -8,11 +8,12 @@
 
 
 <ion-content padding>
-  <ion-row *ngFor="let model of scoreboardmodels" class="roundPanel">
-    <ion-toolbar>
+  <div class="card-container center">
+    <!-- <ion-row *ngFor="let model of scoreboardmodels" class="roundPanel"> -->
+    <!-- <ion-toolbar>
       <ion-title>Round - {{model.round}}</ion-title>
-    </ion-toolbar>
-      <ion-card class="swipe-cards" *ngFor="let imgmodel of model.roundImages" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
+    </ion-toolbar> -->
+    <!-- <ion-card class="swipe-cards" *ngFor="let imgmodel of model.roundImages" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
 
         <img [attr.src]="imgmodel.image">
         <ion-chip *ngFor="let buddy of imgmodel.buddies;">
@@ -20,6 +21,22 @@
           <ion-label>{{buddy}}</ion-label>
         </ion-chip>
 
-      </ion-card>
-  </ion-row>
+      </ion-card> -->
+
+    <sc-card padding *ngFor="let imgmodel of imagesonly" [orientation]="cardDirection" [tinder-card]="cardOverlay" [callDestroy]="imgmodel.destroyEvent"
+      [callLike]="imgmodel.likeEvent" (onLike)="onCardInteract($event)">
+      <!-- <ion-chip>
+        <ion-label>{{imgmodel.playername}}</ion-label>
+      </ion-chip>
+      <ion-chip *ngFor="let buddy of imgmodel.buddies;">
+        <ion-icon name="heart" color="primary" (click)="LikeImage($event, imgmodel)"></ion-icon>
+        <ion-label>{{buddy}}</ion-label>
+      </ion-chip> -->
+      <div class="user_img">
+        <img [attr.src]="imgmodel.image"/>
+      </div>
+    </sc-card>
+
+    <!-- </ion-row> -->
+  </div>
 </ion-content>

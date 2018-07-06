@@ -6,7 +6,7 @@ import { PreviewCanvasPage } from '../../pages/preview-canvas/preview-canvas';
 import { PlayerModel } from '../../models/playermodel';
 import { GameModel } from '../../models/gamemodel';
 
-declare let fabric: any;
+// declare let fabric: any;
 
 @Component({
     selector: 'drawcanvas',
@@ -126,12 +126,27 @@ export class DrawcanvasComponent {
 
     }
 
+    addCanvasBackground(){
+        let ctx = this.canvasElement.getContext('2d');
+
+        var background = new Image();
+        background.src = "assets/imgs/canvasbkg.jpg";
+        
+        // Make sure the image is loaded first otherwise nothing will draw.
+        background.onload = function(){
+            ctx.drawImage(background,0,0);   
+        }
+    }
+
     ngAfterViewInit() {
 
         this.canvasElement = this.canvas.nativeElement;
         this.renderer.setElementAttribute(this.canvasElement, 'width', this.platform.width() + '');
         this.renderer.setElementAttribute(this.canvasElement, 'height', this.platform.height() + '');
-        let ctx = this.canvasElement.getContext('2d');
+        // let ctx = this.canvasElement.getContext('2d');
+
+        this.addCanvasBackground();
+
         // ctx.globalCompositeOperation = "destination-over";
 
         // // set background color
@@ -178,6 +193,7 @@ export class DrawcanvasComponent {
     clearCanvas() {
         let ctx = this.canvasElement.getContext('2d');
         ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+        this.addCanvasBackground();
     }
 
     Submit(event) {

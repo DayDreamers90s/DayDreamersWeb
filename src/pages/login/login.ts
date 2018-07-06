@@ -4,7 +4,8 @@ import { Auth } from '../../providers/auth/auth';
 // import { DrawcanvasComponent } from '../../components/drawcanvas/drawcanvas';
 // import {FeedPage} from '../feed/feed';
 import { SignupPage } from '../signup/signup';
-import { TabsPage } from '../tabs/tabs';
+// import { TabsPage } from '../tabs/tabs';
+import { SideMenuPage } from '../side-menu/side-menu';
 /**
  * Generated class for the LoginPage page.
  *
@@ -32,7 +33,8 @@ export class LoginPage {
     //Check if already authenticated
     this.authService.checkAuthentication().then((res) => {
         this.loading.dismiss();
-        this.navCtrl.setRoot(TabsPage);
+        // this.navCtrl.setRoot(TabsPage);
+        this.navCtrl.setRoot(SideMenuPage);
     }, (err) => {
         this.loading.dismiss();
     });
@@ -51,7 +53,8 @@ login(){
   this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
       console.log(result);
-      this.navCtrl.setRoot(TabsPage);
+    //   this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(SideMenuPage);
   }, (err) => {
       this.loading.dismiss();
       console.log(err);

@@ -1,4 +1,4 @@
-import { IonicPage, NavController, NavParams, MenuController,Slides } from 'ionic-angular';
+import { IonicPage, NavController, MenuController,Slides } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import {LoginPage} from '../login/login';

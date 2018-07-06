@@ -15,13 +15,23 @@ import {ImagepickerPage} from '../imagepicker/imagepicker'
 })
 export class FeedPage {
 
+  picToView: string  = "assets/imgs/rolsroyse.png";
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedPage');
   }
 
+  showbase(){
+    this.picToView = "assets/imgs/rolsroyce_base.jpg";
+  }
+
+  removebase(){
+    this.picToView= "assets/imgs/rolsroyse.png";
+  }
   uploadImage(){
     this.navCtrl.push(ImagepickerPage);
   }

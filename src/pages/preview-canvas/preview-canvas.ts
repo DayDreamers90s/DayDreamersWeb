@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component,EventEmitter  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { PlayerModel } from '../../models/playermodel';
-import { GameModel } from '../../models/gamemodel';
 import { ScoreBoardModel, RoundImageModel } from '../../models/scoreboardmodel';
 
 @IonicPage()
@@ -11,10 +10,24 @@ import { ScoreBoardModel, RoundImageModel } from '../../models/scoreboardmodel';
   templateUrl: 'preview-canvas.html',
 })
 export class PreviewCanvasPage {
+  ready = true;
+  cardDirection = "xy";
+  cardOverlay: any = { 
+      like: {
+          backgroundColor: '#28e93b',
+          img: 'url(assets/imgs/rolsroyse.jpg)'
+      },
+      dislike: {
+          backgroundColor: '#e92828',
+          img: 'url(assets/imgs/rolsroyse.jpg)'
+      }
+  };
 
   scoreboardmodels: ScoreBoardModel[];
+  imagesonly : RoundImageModel[];
 
   constructor(public navCtrl: NavController, public params: NavParams) {
+    this.imagesonly = [];
     this.CreatePlayersForScoreboard(params.get('Players'));
   }
 
@@ -47,11 +60,28 @@ export class PreviewCanvasPage {
             roundimage.buddies.push(players[k].username);
         }
         roundimage.image = players[p].game[g].image;
+        roundimage.likeEvent= new EventEmitter(),
+        roundimage.destroyEvent= new EventEmitter(),
         returnlist[g].roundImages.push(roundimage);
+        this.imagesonly.push(roundimage);
       }
     }
 
     return returnlist;
+  }
+
+  onCardInteract(event) {
+    console.log(event);
+  }
+
+  LikeImage(event, image:RoundImageModel){
+    if (event.target.localName === 'ion-icon') {
+      event.target.className = event.target.className.replace('icon-md-primary', 'icon-md-danger');
+      event.target.className = event.target.className.replace('icon-ios-primary', 'icon-ios-danger');
+    } else if (event.target.parentElement.localName === 'ion-icon') {
+      event.target.parentElement.className = event.target.parentElement.className.replace('icon-md-primary', 'icon-md-danger');
+      event.target.parentElement.className = event.target.parentElement.className.replace('icon-ios-primary', 'icon-ios-danger');
+    }
   }
 
 }

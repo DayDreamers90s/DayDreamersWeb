@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
-import {TabsPage} from '../tabs/tabs';
+// import {TabsPage} from '../tabs/tabs';
+import { SideMenuPage } from '../side-menu/side-menu';
 
 @Component({
   selector: 'signup-page',
@@ -43,7 +44,8 @@ export class SignupPage {
             phonenumber: this.phonenumber,
           };
           this.authService.saveUserDetails(userDetails).then((res) => {
-            this.navCtrl.setRoot(TabsPage);
+            // this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.setRoot(SideMenuPage);
           });
         });
       }     

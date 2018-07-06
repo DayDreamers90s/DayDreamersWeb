@@ -5,13 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar  color="primary">
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Game</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding >
-    <button ion-button full style="margin-top:50%" (click)="enterSinglePlayerMode($event)">Single Player</button>
-    <button ion-button full (click)="enterMultiPlayerMode($event)">Multi Player</button>
+<ion-content padding>
+  <button ion-button full style="margin-top:50%" (click)="enterSinglePlayerMode($event)">Single Player</button>
+  <button ion-button full (click)="enterMultiPlayerMode($event)">Multi Player</button>
 </ion-content>
