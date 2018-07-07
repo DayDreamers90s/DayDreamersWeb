@@ -19,7 +19,7 @@ import {UserBuddiesPage} from '../pages/user-buddies/user-buddies';
 import {PreviewCanvasPage} from '../pages/preview-canvas/preview-canvas';
 
 import {CardcategoriesPage} from '../pages/admin/cardcategories/cardcategories';
-
+import {CardlevelsPage} from '../pages/admin/cardlevels/cardlevels';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {Camera} from '@ionic-native/camera';
@@ -30,16 +30,21 @@ import {IonicStorageModule} from '@ionic/storage';
 
 import { UserBuddiesProvider } from '../providers/user-buddies/user-buddies';
 import { CardCategoriesProvider } from '../providers/admin/cardcategories';
+import { CardLevelsProvider } from '../providers/admin/cardlevels';
+import { CardcategoriesPageModule } from '../pages/admin/cardcategories/cardcategories.module';
+import { CardlevelsPageModule } from '../pages/admin/cardlevels/cardlevels.module';
+import { GamePageModule } from '../pages/game/game.module';
+import { FeedPageModule } from '../pages/feed/feed.module';
 @NgModule({
   declarations: [
     MyApp,
     SideMenuPage,
     TabsPage,
-    FeedPage,
+    // FeedPage,
     LoginPage,
     SignupPage,
     TutorialPage,
-    GamePage,
+    // GamePage,
     UserBuddiesPage,
     BookmarksPage,
     SettingsPage,
@@ -47,14 +52,19 @@ import { CardCategoriesProvider } from '../providers/admin/cardcategories';
     ImagepickerPage,
     DrawcanvasComponent,
     PreviewCanvasPage,
-    CardcategoriesPage
+    //CardcategoriesPage,
+    //CardlevelsPage
   ],
   imports: [
     BrowserModule,
     HttpModule ,
     SwipeCardsModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    GamePageModule,
+    FeedPageModule,
+    CardcategoriesPageModule,
+    CardlevelsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,7 +83,8 @@ import { CardCategoriesProvider } from '../providers/admin/cardcategories';
     ImagepickerPage,
     DrawcanvasComponent,
     PreviewCanvasPage,
-    CardcategoriesPage
+    CardcategoriesPage,
+    CardlevelsPage
   ],
   providers: [
     StatusBar,
@@ -82,7 +93,8 @@ import { CardCategoriesProvider } from '../providers/admin/cardcategories';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Auth,
     UserBuddiesProvider,
-    CardCategoriesProvider
+    CardCategoriesProvider,
+    CardLevelsProvider
   ]
 })
 export class AppModule {}

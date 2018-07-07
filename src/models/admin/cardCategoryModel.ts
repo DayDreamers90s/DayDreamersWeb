@@ -8,6 +8,4 @@ export class CardCategoryModel {
         this.name =  category && category.name || '';
         this.description =  category && category.description|| '';
     }
-
-
 }
